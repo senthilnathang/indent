@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="group_indent_outlet_user" model="res.groups">
+            <field name="name">Indent Outlet User</field>
+    </record>
+    
+    <record id="group_indent_factory_user" model="res.groups">
+            <field name="name">Indent Factory User</field>
+    </record>
+    
+    <record id="group_indent_dispatch_user" model="res.groups">
+            <field name="name">Indent Dispatch User</field>
+    </record>
+    
+    <record id="group_indent_production_user" model="res.groups">
+            <field name="name">Indent Production User</field>
+    </record>
+    
+    <record id="group_indent_delivery_user" model="res.groups">
+            <field name="name">Indent Delivery User</field>
+    </record>
+    
+    <record id="group_indent_store_user" model="res.groups">
+            <field name="name">Indent Store User</field>
+    </record>
+
+
+</data>
+<data noupdate="1">
+
+</data>
+</openerp>

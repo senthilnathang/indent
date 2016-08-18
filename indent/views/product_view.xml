@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="product_product_search_view" model="ir.ui.view">
+            <field name="name">product.product.search</field>
+            <field name="model">product.product</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Products">
+                    <field name="name"/>
+                    <field name="lst_price"/>
+                    <field name="uom_id"/>
+                    <field name="state" invisible="1"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="product_product_tree_view" model="ir.ui.view">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Products">
+                    <field name="name"/>
+                    <field name="lst_price"/>
+                    <field name="uom_id"/>
+                    <field name="indent_count_received"/>
+                    <field name="indent_count_raised"/>
+                    <field name="pos_sales_count"/>
+                    <field name="sales_count"/>
+                    <field name="purchase_count"/>
+                    <field name="delivery_count"/>
+                    <field name="reception_count"/>
+                    <field name="dump_count"/>
+                    <field name="incoming_qty"/>
+                    <field name="outgoing_qty"/>
+                    <field name="qty_available"/>
+                    <field name="virtual_available"/>
+                    <field name="state" invisible="1"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="product_product_grpah_view" model="ir.ui.view">
+            <field name="name">product.product.graph</field>
+            <field name="model">product.product</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <graph string="Products">
+                    <field name="categ_id"/>
+                    <field name="product_categ_type_id"/>
+                    <field name="lst_price"/>
+                    <field name="uom_id"/>
+                    <field name="indent_count_received"/>
+                    <field name="indent_count_raised"/>
+                    <field name="pos_sales_count"/>
+                    <field name="sales_count"/>
+                    <field name="purchase_count"/>
+                    <field name="delivery_count"/>
+                    <field name="reception_count"/>
+                    <field name="qty_available"/>
+                    <field name="virtual_available"/>
+                </graph>
+            </field>
+        </record>
+        
+        
+
+
+        <record model="ir.ui.view" id="product_form_view_indent_button">
+            <field name="name">product.product.indent</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <div name="button_box" position="inside">
+                       <button class="oe_stat_button" name="%(indent.action_indent_line_product_tree)d"
+                           type="action" icon="fa-shopping-cart">
+                           <field string="Indents Raised" name="indent_count_raised" widget="statinfo"/>
+                       </button>
+                       <button class="oe_stat_button" name="%(indent.action_indent_line_product_tree)d"
+                           type="action" icon="fa-shopping-cart">
+                           <field string="Indents Received" name="indent_count_received" widget="statinfo"/>
+                       </button>
+                       <button class="oe_stat_button" name="%(indent.action_indent_line_product_tree)d"
+                           type="action" icon="fa-shopping-cart">
+                           <field string="POS Sales" name="pos_sales_count" widget="statinfo"/>
+                       </button>
+                    </div>
+                </data>
+            </field>
+        </record>
+        
+        
+        <record id="view_product_template_indent_buttons_from" model="ir.ui.view">
+            <field name="name">product.template.indent.button.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                   <button class="oe_stat_button" name="%(indent.action_indent_line_product_tree)d"
+                       type="action" icon="fa-shopping-cart">
+                       <field string="Indents Raised" name="indent_count_raised" widget="statinfo"/>
+                   </button>
+                   <button class="oe_stat_button" name="%(indent.action_indent_line_product_tree)d"
+                       type="action" icon="fa-shopping-cart">
+                       <field string="Indents Received" name="indent_count_received" widget="statinfo"/>
+                   </button>
+                   <button class="oe_stat_button" name="%(indent.action_pos_order_line_product_tree)d"
+                       type="action" icon="fa-shopping-cart">
+                       <field string="POS Sales" name="pos_sales_count" widget="statinfo"/>
+                   </button>
+                </div>
+                <field name="name" position="after">
+                    <field  name="product_categ_type_id"/>
+                </field>
+            </field>
+        </record>
+        
+        
+        <record id="action_pos_sales" model="ir.actions.act_window">
+            <field name="name">Pos Sales</field>
+            <field name="res_model">report.pos.order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        
+        <record id="action_indents_received" model="ir.actions.act_window">
+            <field name="name">Indents Received</field>
+            <field name="res_model">indent.order.line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain" eval="[('order_id.state','in',['done'])]"/>
+        </record>
+        
+        <record id="action_indents_raised" model="ir.actions.act_window">
+            <field name="name">Indents raised</field>
+            <field name="res_model">indent.order.line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain" eval="[('order_id.state','not in',['draft','cancel'])]"/>
+        </record>
+        
+        <record model="ir.ui.view" id="product_kanban_stock_view">
+            <field name="name">Product Kanban Stock</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_kanban_view"/>
+            <field name="arch" type="xml">
+                <field name="lst_price" position="after">
+                    <field name="pos_sales_count"/>
+                    <field name="indent_count_received"/>
+                    <field name="indent_count_raised"/>
+                </field>
+                <xpath expr="//div[@name='tags']" position="inside">
+                    <a name="%(action_pos_sales)d" type="action" t-if="record.pos_sales_count.raw_value&gt;1">
+                        <t t-esc="record.pos_sales_count.value"/> POS Sales
+                    </a>
+                    <a name="%(action_pos_sales)d" type="action" t-if="record.pos_sales_count.raw_value==1">
+                        <t t-esc="record.pos_sales_count.value"/> POS Sale
+                    </a>
+                    <br/>
+                    <a name="%(action_indents_received)d" type="action" t-if="record.indent_count_received.raw_value&gt;1">
+                        <t t-esc="record.indent_count_received.value"/> Indents Received
+                    </a>
+                    <a name="%(action_indents_received)d" type="action" t-if="record.indent_count_received.raw_value==1">
+                        <t t-esc="record.indent_count_received.value"/> Indent Received
+                    </a>
+                    <br/>
+                    <a name="%(action_indents_raised)d" type="action" t-if="record.indent_count_raised.raw_value&gt;1">
+                        <t t-esc="record.indent_count_raised.value"/> Indents Raised
+                    </a>
+                    <a name="%(action_indents_raised)d" type="action" t-if="record.indent_count_raised.raw_value==1">
+                        <t t-esc="record.indent_count_raised.value"/> Indent Raised
+                    </a>
+                    <br/>
+                </xpath>
+            </field>
+        </record>
+        
+<!--
+        <record id="product_product_pivot_view" model="ir.ui.view">
+            <field name="name">product.product.pivot</field>
+            <field name="model">product.product</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Products">
+                    <field name="name" type="col"/>
+                    <field name="lst_price" type="col"/>
+                    <field name="uom_id" type="col"/>
+                    <field name="indent_count_received" type="col"/>
+                    <field name="indent_count_raised" type="col"/>
+                    <field name="pos_sales_count" type="col"/>
+                    <field name="sales_count" type="col"/>
+                    <field name="purchase_count" type="col"/>
+                    <field name="qty_available" type="col"/>
+                    <field name="virtual_available" type="col"/>
+                    <field name="state" invisible="1"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+-->
+        
+        
+    <record id="action_product_reports" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
+        <field name="context">{}</field>
+        <field name="view_id"></field> 
+        <field name="search_view_id" ref="product_product_search_view"/>
+    </record>
+
+    
+    <record id="action_report_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="product_product_tree_view"/>
+            <field name="act_window_id" ref="action_product_reports"/>
+    </record>
+    
+<!--
+    <record id="action_report_pivot_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="product_product_pivot_view"/>
+            <field name="act_window_id" ref="action_product_reports"/>
+    </record>
+-->
+
+    <menuitem id="menu_product_reports" action="action_product_reports" name="Products" parent="indent.menu_indent_root" sequence="9" groups="stock.group_stock_manager,stock.group_stock_user"/>
+
+   
+    </data>
+</openerp>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_advance_order_document">
+    <t t-call="report.external_layout">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+        <div class="page">
+            <div class="oe_structure"/>
+
+            <h2>
+                <span>Order Details</span>
+                <span t-field="doc.name"/>
+            </h2>
+
+<!--
+            <div>
+                <p t-field="doc.company_id.name"/>
+                <p t-field="doc.company_id.partner_id.street1"/>
+                <p t-field="doc.company_id.partner_id.street2"/>
+                <p t-field="doc.company_id.partner_id.city"/>
+                <p t-field="doc.company_id.partner_id.zip"/>
+                <p t-field="doc.company_id.partner_id.email"/>
+                <p t-field="doc.company_id.partner_id.mobile"/>
+            </div>
+-->
+
+            <div class="row mt32 mb32" id="informations">
+                <div t-if="doc.date_order" class="col-xs-3">
+                    <strong>Order Date:</strong>
+                    <p t-field="doc.date_order"/>
+                </div>
+                <div t-if="doc.user_id.name" class="col-xs-3">
+                    <strong>User:<p t-field="doc.user_id.name"/></strong>
+                </div>
+            </div>
+
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th class="text-right">Price</th>
+                        <th class="text-right">Unit</th>
+                        <th class="text-right">Quantity</th>
+                        <th class="text-right">Total Amount</th>
+                        <th class="text-right"></th>
+                    </tr>
+               </thead>
+               <tbody class="sale_tbody">
+                    <t t-foreach="doc.advance_order_line_ids" t-as="l">
+                        <tr>
+                            <td>
+                               <span t-field="l.name"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_unit"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.unit"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.quantity"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_total"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+            <div class="row" name="total">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span t-field="doc.amount_total"/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Paid </strong></td>
+                            <td class="text-right">
+                                <span t-field="doc.amount_paid"/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Due </strong></td>
+                            <td class="text-right">
+                                <span t-field="doc.amount_due"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+<!--
+            <p t-field="doc.communication" />
+-->
+            <div class="oe_structure"/>
+        </div>
+    </t>
+</template>
+
+
+<template id="report_advance_order">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="indent.report_advance_order_document" t-lang="doc.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

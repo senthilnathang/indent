@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="product_categ_type_search_view" model="ir.ui.view">
+            <field name="name">product.categ.type.search</field>
+            <field name="model">product.categ.type</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Products">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="product_categ_type_tree_view" model="ir.ui.view">
+            <field name="name">product.categ.type.tree</field>
+            <field name="model">product.categ.type</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Products">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="product_categ_type_form_view" model="ir.ui.view">
+            <field name="name">product.categ.type.form</field>
+            <field name="model">product.categ.type</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Products">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <notebook>
+                                <page>
+                                <field name="product_lines">
+                                    <form name="Lines" string="Lines">
+                                        <field name="product_id"/>
+                                    </form>
+                                    <tree string="Lines">
+                                        <field name="product_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="product_categ_type_grpah_view" model="ir.ui.view">
+            <field name="name">product.categ.type.graph</field>
+            <field name="model">product.categ.type</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <graph string="Products">
+                    <field name="name"/>
+                </graph>
+            </field>
+        </record>
+    
+        
+    <record id="action_product_categ_type" model="ir.actions.act_window">
+        <field name="name">Product Categ Type</field>
+        <field name="res_model">product.categ.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
+        <field name="context">{}</field>
+        <field name="view_id"></field> 
+        <field name="search_view_id" ref="product_categ_type_search_view"/>
+    </record>
+
+    
+    <record id="action_report_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="product_categ_type_tree_view"/>
+            <field name="act_window_id" ref="action_product_categ_type"/>
+    </record>
+    
+
+    <menuitem id="menu_product_categ_type" action="action_product_categ_type" name="Indent Type" parent="indent.menu_indent_root" sequence="9" groups="stock.group_stock_manager"/>
+
+   
+    </data>
+</openerp>

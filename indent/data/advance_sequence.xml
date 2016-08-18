@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Sequences for indent.order --> 
+        <record id="seq_job_sheet" model="ir.sequence">
+            <field name="name">Advance Order</field>
+            <field name="code">advance.order</field>
+            <field name="prefix">Adv</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="1"/>
+        </record>
+    </data>
+</openerp>
